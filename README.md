@@ -11,10 +11,8 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Shed
 - [x] Porth
 - [x] Snitch
-- [x] olive.c demos SDL
-- [x] olive.c demos term
-- [x] olive.c demos wasm
-- [x] olive.c demos server (NixOS only)
+- [x] olive.c
+- [x] olive.c NixOS module
 - [ ] Zozin NixOS module
 - [ ] Zozin home-manager module
 

@@ -13,7 +13,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Snitch
 - [x] olive.c
 - [x] olive.c NixOS module
-- [ ] Zozin NixOS module
+- [x] Zozin NixOS module
 - [ ] Zozin home-manager module
 
 Also some build helpers:
@@ -117,7 +117,23 @@ outputs = { nixpkgs, zozin, ... }: {
 ```
 
 ### NixOS Configuration
-WIP
+- `git clone https://github.com/dtomvan/zozin.nix`
+- `cd zozin.nix`
+- IMPORTANT: tweak! I can do assumptions about what a "Tsoding-like" config
+  might look like, and could be a starting point to you, but please keep
+  thinking with your own brain. The packages are useful, but a full NixOS
+  configuration for this is as useful as GnomeOS to the average user.
+- activate
+
+You can either use `nixos-rebuild`:
+```ShellSession
+$ sudo nixos-rebuild switch --fast --flake .#zozin
+```
+
+Or `nix-helper` (https://github.com/nix-community/nh)
+```ShellSession
+$ nh os switch -H zozin .
+```
 
 ### Home-manager module
 

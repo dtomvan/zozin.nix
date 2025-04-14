@@ -39,7 +39,6 @@
             modules = [./configuration.nix];
           });
 
-        nixosModules.zozin = ./nixos-modules/zozin.nix;
         nixosModules.olive_c = {pkgs, ...}: {
           imports = [./nixos-modules/olive_c.nix];
           services.olive-c.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.olive_c);

@@ -39,10 +39,15 @@
             modules = [./configuration.nix];
           });
 
-        nixosModules.zozin = ./module.nix;
+        nixosModules.zozin = ./nixos-modules/zozin.nix;
         nixosModules.olive_c = {pkgs, ...}: {
-          imports = [./olive_c.nix];
+          imports = [./nixos-modules/olive_c.nix];
           services.olive-c.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.olive_c);
+        };
+
+        nixosModules.koil = {pkgs, ...}: {
+          imports = [./nixos-modules/koil.nix];
+          services.koil.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.koil);
         };
 
         homeConfigurations.zozin = nixpkgs.lib.nixosSystem {

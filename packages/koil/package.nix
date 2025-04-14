@@ -1,54 +1,89 @@
 {
-  fetchFromGitHub,
+  lib,
   llvmPackages_19,
   glibc_multi,
   c3c,
+  fetchFromGitHub,
   buildNpmPackage,
+  http-server,
+  writeShellScript,
   replaceVars,
-  lib,
+  makeWrapper,
   nix-update-script,
 }: let
   llvmPackages = llvmPackages_19;
   cc = llvmPackages.clang;
   ourc3c = c3c.overrideAttrs {
-    version = "0.7.1"; # or versionCheckHook will complain
+    version = "0.6.8"; # or versionCheckHook will complain
     src = fetchFromGitHub {
       owner = "c3lang";
       repo = "c3c";
-      rev = "eade5fa57a28e3611f8b7b8830d6dc6390f136fe";
-      hash = "sha256-JpNSCG6+yC0YLSM5xlyJ0ehRzCAk1I+3Q7QueuiyhfA=";
+      rev = "855be9288121d0f7a67d277f7bbbbf57fbfa2597";
+      hash = "sha256-atG6wbVLPRU8bnzOHboQyxbYATr6FSMHp5ZcpIyJLLo=";
     };
 
-    doCheck = false; # oh such a bummer
+    doCheck = false; # oh such a bummer (just takes too long, this is not even production ready yet)
   };
+  serve = writeShellScript "koil-serve.sh" ''
+    set -x
+
+    koil-server &
+    ${lib.getExe http-server} -p ''${KOIL_PORT:-6969} -a 0.0.0.0 -g -c-1 &
+
+    cleanup () { kill 0; }
+    trap cleanup SIGINT
+
+    wait
+  '';
 in
   buildNpmPackage {
     pname = "koil";
     version = "0-unstable-2025-04-06";
 
     src = fetchFromGitHub {
-      owner = "lerno";
+      owner = "tsoding";
       repo = "koil";
-      rev = "698697d5511f68966bf86e5d9c3c68f8b1d2779c";
-      hash = "sha256-wUx94eZC/g8pIyF7t/KBuuh66hbXeW04Vo6+wepJa+o=";
+      rev = "49f1836614cb922034074466527c5376681d0061";
+      hash = "sha256-+c6AW2D8v2E5zCg+rHU3SKRaT9yvspaNCDrGk9zBFog=";
     };
 
-    # patches = [
-    #   (replaceVars ./use-different-wasm32-compiler.patch {
-    #     GLIBC = glibc_multi.dev;
-    #     CLANG = cc.passthru.cc.lib;
-    #   })
-    # ];
+    patches = [
+      (replaceVars ./use-different-wasm32-compiler.patch {
+        GLIBC = glibc_multi.dev;
+        CLANG = cc.passthru.cc.lib;
+      })
+    ];
+
+    nativeBuildInputs = [
+      cc
+      ourc3c
+      makeWrapper
+    ];
 
     npmDepsHash = "sha256-d+LGpFoThvA7KnFqEhnJSPhj+jQcvc399Iv7YJ5ZtVw=";
 
-    nativeBuildInputs = [
-    cc 
-    # ourc3c
-    c3c
-    ];
+    # those are checked out in git
+    preBuild = ''
+      rm -rf build
+      rm -f client.wasm client.mjs
+    '';
 
-    # Needs to be fixed upstream. Neither tsoding or lerno compiles on either c3c
-    # from nixpkgs or the one tsoding suggested
-    meta.broken = true;
+    postInstall = ''
+      mkdir $out/bin
+      cp build/server $out/bin/koil-server
+      cp build/packer $out/bin/koil-packer
+      cp index.html client.wasm client.mjs $out
+
+      makeWrapper ${serve} $out/bin/koil-serve \
+        --prefix PATH ":" $out/bin \
+        --chdir $out
+    '';
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = {
+      description = "Online Multiplayer Browser Game with Old-School Raycasting Graphics";
+      homepage = "https://github.com/tsoding/koil";
+      licenses = lib.licenses.mit;
+    };
   }

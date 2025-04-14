@@ -1,5 +1,4 @@
 # NixOS module for Olive.C by Tsoding (https://github.com/tsoding/olive.c)
-# packages == the packages added by this flake
 {
   pkgs,
   lib,

@@ -6,8 +6,8 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Markut
 - [x] Musializer
 - [x] Sowon
-- [ ] Koil
-- [ ] Koil server (NixOS only)
+- [x] Koil
+- [x] Koil server (NixOS only)
 - [x] Shed
 - [x] Porth
 - [x] Snitch

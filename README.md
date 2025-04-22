@@ -44,8 +44,8 @@ let
   zozin = import (pkgs.fetchFromGitHub {
     owner = "dtomvan";
     repo = "zozin.nix";
-    rev = "db0f969f517ecdea1a20cad3bd41fa28e0dd6762";
-    hash = "sha256-tFZIKO/mt4vdusr18Oi/dUDsZxdmspHYIgDnE445u30=";
+    rev = "55bc67919c057ada68f668dce1a8ce6e90648900";
+    hash = "sha256-h7jOJm0+9GLBB79sBcMDfAk0UzObyJhLbR3u4cdmaJM=";
   });
 in {
   environment.systemPackages = with zozin; [porth musializer sowon boomer ded];

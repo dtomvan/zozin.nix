@@ -13,6 +13,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Snitch
 - [x] olive.c
 - [x] olive.c NixOS module
+- [x] B
 - [x] Crust (does nothing yet but who knows)
 - [x] good_training_language
 
@@ -46,8 +47,8 @@ let
   zozin = import (pkgs.fetchFromGitHub {
     owner = "dtomvan";
     repo = "zozin.nix";
-    rev = "55bc67919c057ada68f668dce1a8ce6e90648900";
-    hash = "sha256-h7jOJm0+9GLBB79sBcMDfAk0UzObyJhLbR3u4cdmaJM=";
+    rev = "3f80e6c74f1c4aafb9530902f9a9cb6d076be626";
+    hash = "sha256-6/7pERX/tx/Bai/ou7UN+ltNImCdEpxlTrAiB/YM6v0=";
   });
 in {
   environment.systemPackages = with zozin; [porth musializer sowon boomer ded];

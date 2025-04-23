@@ -37,8 +37,6 @@
           imports = [./nixos-modules/koil.nix];
           services.koil.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.koil);
         };
-
-        homeModules.zozin = ./hm-module.nix;
       };
 
       systems = ["x86_64-linux" "aarch64-linux"];

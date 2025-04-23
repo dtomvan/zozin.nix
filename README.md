@@ -14,6 +14,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] olive.c
 - [x] olive.c NixOS module
 - [x] Crust (does nothing yet but who knows)
+- [x] good_training_language
 
 Also some build helpers:
 - [x] buildNobPackage

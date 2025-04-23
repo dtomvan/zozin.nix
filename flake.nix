@@ -41,8 +41,13 @@
 
       systems = ["x86_64-linux" "aarch64-linux"];
 
-      perSystem = {pkgs, ...}: {
+      perSystem = {pkgs, system, ...}: {
         pkgsDirectory = ./packages;
+
+        checks.koil = pkgs.testers.runNixOSTest {
+          imports = [./tests/koil.nix];
+          defaults.services.koil.package = self.packages.${system}.koil;
+        };
       };
     });
 }

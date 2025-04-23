@@ -61,7 +61,7 @@ in
     cp -r js index.html $out
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Simple 2D Graphics Library for C";

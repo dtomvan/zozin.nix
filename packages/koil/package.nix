@@ -79,7 +79,7 @@ in
         --chdir $out
     '';
 
-    passthru.updateScript = nix-update-script {};
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     meta = {
       description = "Online Multiplayer Browser Game with Old-School Raycasting Graphics";

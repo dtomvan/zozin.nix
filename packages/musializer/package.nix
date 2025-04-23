@@ -14,7 +14,7 @@
   dialogProgram ? zenity,
 }: (buildNobPackage rec {
   pname = "musializer";
-  version = "0-unstable-2025-04-14";
+  version = "alpha2-unstable-2025-04-14";
 
   src = fetchFromGitHub {
     owner = "tsoding";
@@ -63,7 +63,7 @@
 
   outPaths = ["build/musializer"];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Music Visualizer";

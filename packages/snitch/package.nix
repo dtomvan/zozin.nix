@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorHash = "sha256-QAbxld0UY7jO9ommX7VrPKOWEiFPmD/xw02EZL6628A=";
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Finds TODOs in source code and reports them as issues";

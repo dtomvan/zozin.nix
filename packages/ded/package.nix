@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r fonts shaders $out
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Music Visualizer";

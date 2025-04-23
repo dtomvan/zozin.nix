@@ -22,7 +22,7 @@
     cp nob.h $out/include
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Header only library for writing build recipes in C.";

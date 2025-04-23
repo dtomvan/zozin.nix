@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   buildPhase = "rdmd build.d";
   installPhase = "mkdir -p $out/bin; cp shed $out/bin";
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Shell in D";

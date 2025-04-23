@@ -17,7 +17,7 @@ buildGoModule {
 
   vendorHash = null;
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Autocut the Twitch VODs based on a Marker file";

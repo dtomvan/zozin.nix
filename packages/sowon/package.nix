@@ -24,7 +24,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Starting Soon Timer for Tsoding Streams";

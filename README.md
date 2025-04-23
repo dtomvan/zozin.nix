@@ -13,6 +13,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Snitch
 - [x] olive.c
 - [x] olive.c NixOS module
+- [x] Crust (does nothing yet but who knows)
 
 Also some build helpers:
 - [x] buildNobPackage

@@ -38,13 +38,13 @@
 in
   buildNpmPackage {
     pname = "koil";
-    version = "0-unstable-2025-04-06";
+    version = "0-unstable-2025-04-21";
 
     src = fetchFromGitHub {
       owner = "tsoding";
       repo = "koil";
-      rev = "49f1836614cb922034074466527c5376681d0061";
-      hash = "sha256-+c6AW2D8v2E5zCg+rHU3SKRaT9yvspaNCDrGk9zBFog=";
+      rev = "1686d2cdce6e0c8923808911162ebbcf1ef6db39";
+      hash = "sha256-W6xfQln75FmqhUdv5UjxHW4ihE5l90n4Kgq0iLqrAxc=";
     };
 
     patches = [

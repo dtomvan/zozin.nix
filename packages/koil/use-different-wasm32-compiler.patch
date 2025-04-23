@@ -1,8 +1,8 @@
 diff --git i/build.js w/build.js
-index f5f8811..44fcbec 100644
+index 341a12e..8c72369 100644
 --- i/build.js
 +++ w/build.js
-@@ -46,9 +46,11 @@ async function buildClient() {
+@@ -46,16 +46,20 @@ async function buildClient() {
              SRC_FOLDER+"packer.c",
              "-lm",
          ]),
@@ -15,3 +15,13 @@ index f5f8811..44fcbec 100644
              "-I", SRC_FOLDER+"cws/",
              "-c", SRC_FOLDER+"common.c",
              "-o", BUILD_FOLDER+"common.wasm.o",
+         ]),
+-        cmdAsync("clang", [
++        cmdAsync("clang-19", [
+             "-Wall", "-Wextra",
+             "--target=wasm32",
++            "-I", "@GLIBC@/include",
++            "-I", "@CLANG@/lib/clang/19/include",
+             "-I", SRC_FOLDER+"cws/",
+             "-c", SRC_FOLDER+"client.c",
+             "-o", BUILD_FOLDER+"client.wasm.o",

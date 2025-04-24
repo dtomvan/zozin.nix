@@ -1,12 +1,12 @@
 { stdenv, nix-update-script, lib, fetchFromGitHub }: stdenv.mkDerivation {
   pname = "nob.h";
-  version = "0-unstable-2025-04-14";
+  version = "0-unstable-2025-04-24";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "nob.h";
-    rev = "ceeb7bedd4df1f519d5991f8314cb567939a4b21";
-    hash = "sha256-4XLf9MuO+0hiE1+PWBzyGuZklBGzN0lZGSEAY7Htwbo=";
+    rev = "112911eba033af91e3d6e7100f8dde69127b3525";
+    hash = "sha256-FW3X15MeaoJ2wBm20Dup1GhBW1+eNbJ3ynF5kBLLKcM=";
   };
 
   doBuild = false;

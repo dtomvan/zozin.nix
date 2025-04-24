@@ -1,15 +1,15 @@
 diff --git i/Makefile w/Makefile
-index 6dbda98..aaf550a 100644
+index 6cea5d6..37254fe 100644
 --- i/Makefile
 +++ w/Makefile
-@@ -16,8 +16,8 @@ hello.asm: hello.b b
- b: b.rs libc.rs crust.rs nob.rs stb_c_lexer.rs nob.o stb_c_lexer.o flag.o
- 	rustc --edition 2021 -g -C opt-level=z -C link-args="-lc nob.o stb_c_lexer.o flag.o" -C panic="abort" b.rs
+@@ -6,8 +6,8 @@ EXAMPLES=examples
+ $(BUILD)/b: $(SRC)/b.rs $(SRC)/libc.rs $(SRC)/nob.rs $(SRC)/stb_c_lexer.rs $(BUILD)/nob.o $(BUILD)/stb_c_lexer.o $(BUILD)/flag.o
+ 	rustc --edition 2021 -g -C opt-level=z -C link-args="-lc $(BUILD)/nob.o $(BUILD)/stb_c_lexer.o $(BUILD)/flag.o" -C panic="abort" $(SRC)/b.rs -o $(BUILD)/b
  
--nob.o: nob.h
--	clang -g -x c -DNOB_IMPLEMENTATION -c nob.h
-+nob.o:
-+	clang -g -x c -DNOB_IMPLEMENTATION -o nob.o -c @NOB_H@
+-$(BUILD)/nob.o: $(THIRDPARTY)/nob.h $(BUILD)
+-	clang -g -x c -DNOB_IMPLEMENTATION -c $(THIRDPARTY)/nob.h -o $(BUILD)/nob.o
++$(BUILD)/nob.o: $(BUILD)
++	clang -g -x c -DNOB_IMPLEMENTATION -c @NOB_H@ -o $(BUILD)/nob.o
  
- stb_c_lexer.o: stb_c_lexer.h
- 	clang -g -x c -DSTB_C_LEXER_IMPLEMENTATION -c stb_c_lexer.h
+ $(BUILD)/stb_c_lexer.o: $(THIRDPARTY)/stb_c_lexer.h $(BUILD)
+ 	clang -g -x c -DSTB_C_LEXER_IMPLEMENTATION -c $(THIRDPARTY)/stb_c_lexer.h -o $(BUILD)/stb_c_lexer.o

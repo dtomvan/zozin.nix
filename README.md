@@ -5,6 +5,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Boomer
 - [x] Crust (does nothing yet but who knows)
 - [x] Ded
+- [x] Gatekeeper
 - [x] Koil
 - [x] Koil NixOS module
 - [x] Markut

@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage {
     description = "Simple Multi-User Chat";
     homepage = "https://github.com/tsoding/4at";
     license = lib.licenses.mit;
-    mainProgram = "4at";
+    mainProgram = "4at-client";
   };
 }

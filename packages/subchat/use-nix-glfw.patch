@@ -1,15 +1,13 @@
 diff --git i/CMakeLists.txt w/CMakeLists.txt
-index 3b4c8c1..c03bca2 100644
+index d6a3201..6f20aea 100644
 --- i/CMakeLists.txt
 +++ w/CMakeLists.txt
-@@ -51,18 +51,10 @@ target_link_libraries(subtitles_generator
- # ─────────────────────────────────────────────────────────────────
- if (BUILD_GUI)
+@@ -55,16 +55,9 @@ if (BUILD_GUI)
      # Find GUI dependencies
-+    find_package(PkgConfig REQUIRED)
      find_package(OpenGL REQUIRED)
      find_package(GLEW REQUIRED)
--
++    find_package(PkgConfig REQUIRED)
+ 
 -    # GLFW configuration
 -    set(GLFW_DIR "${CMAKE_SOURCE_DIR}/submodules/glfw")
 -    option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
@@ -23,13 +21,10 @@ index 3b4c8c1..c03bca2 100644
  
      # Dear ImGui configuration
      set(IMGUI_DIR "${CMAKE_SOURCE_DIR}/submodules/imgui")
-@@ -91,6 +83,7 @@ if (BUILD_GUI)
+@@ -91,5 +84,6 @@ if (BUILD_GUI)
              glfw
              OpenGL::GL
              GLEW::GLEW
 +            PkgConfig::GLFW
-             nfd
      )
--endif ()
-\ No newline at end of file
-+endif ()
+ endif ()

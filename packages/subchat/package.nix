@@ -11,7 +11,8 @@
   libGL,
   glfw,
   glew,
-  gtk3,
+  makeWrapper,
+  zenity,
   guiSupport ? true,
 }:
 stdenv.mkDerivation {
@@ -19,10 +20,10 @@ stdenv.mkDerivation {
   version = "0-unstable-2025-04-08";
 
   src = fetchFromGitHub {
-    owner = "Kam1k4dze";
+    owner = "dtomvan";
     repo = "SubChat";
-    rev = "8b04fe4df3c8b0d50054f50fd313ecbbfcab07d5";
-    hash = "sha256-WEiTkCgCO4u8C3r3Y8xtba3tzyyYFCggyDT3A1NdT6M=";
+    rev = "0e6a17364d7d2b4012bba05a1b66ddf39bef0531";
+    hash = "sha256-TuzEMj3uJcBgAKOl9CWc7x4qG4XslfoD3HFlyCcyxHM=";
     fetchSubmodules = true;
   };
 
@@ -31,13 +32,15 @@ stdenv.mkDerivation {
     ./dont-fucking-static-link.patch # this is nixpkgs dammit, -static will not work with stdenv
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optional guiSupport wayland-scanner;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      makeWrapper
+    ]
+    ++ lib.optional guiSupport wayland-scanner;
 
   buildInputs = lib.optionals guiSupport [
-    gtk3
     glfw
     glew
     libGL
@@ -47,11 +50,20 @@ stdenv.mkDerivation {
   ];
 
   installPhase = ''
-  runHook preInstall
-  mkdir -p $out/bin
-  cp subtitles_generator $out/bin
-  ${lib.optionalString guiSupport "cp config_generator_gui $out/bin"}
-  runHook postInstall
+    runHook preInstall
+    mkdir -p $out/bin
+    cp subtitles_generator $out/bin
+    ${lib.optionalString guiSupport "cp config_generator_gui $out/bin"}
+    runHook postInstall
+  '';
+
+  fixupPhase = ''
+  runHook preFixup
+  ${lib.optionalString guiSupport ''
+  wrapProgram $out/bin/config_generator_gui \
+    --prefix PATH ":" ${lib.makeBinPath [zenity]}
+  ''}
+  runHook postFixup
   '';
 
   meta = {

@@ -18,6 +18,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] good_training_language
 - [x] SubChat (not by zozin but relevant to the streams)
 - [x] Panim
+- [x] Tula
 
 Also some build helpers:
 - [x] buildNobPackage

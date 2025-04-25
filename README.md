@@ -1,6 +1,7 @@
 # zozin.nix
 
 Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsoding) (twitch.tv/tsoding) projects:
+- [x] 4at (`fourat`)
 - [x] B
 - [x] Boomer
 - [x] Crust (does nothing yet but who knows)

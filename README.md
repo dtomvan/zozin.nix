@@ -18,6 +18,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Snitch
 - [x] Sowon
 - [x] SubChat (not by zozin but relevant to the streams)
+- [x] Todo.asm
 - [x] Tula
 - [x] good_training_language
 - [x] olive.c

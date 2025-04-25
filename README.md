@@ -13,6 +13,7 @@ Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsodi
 - [x] Musializer
 - [x] Panim
 - [x] Porth
+- [x] Seroost
 - [x] Shed
 - [x] Snitch
 - [x] Sowon

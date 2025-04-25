@@ -1,24 +1,24 @@
 # zozin.nix
 
 Nix/NixOS module and packages for most major [@Tsoding](https://github.com/tsoding) (twitch.tv/tsoding) projects:
+- [x] B
 - [x] Boomer
+- [x] Crust (does nothing yet but who knows)
 - [x] Ded
-- [x] Markut
-- [x] Musializer
-- [x] Sowon
 - [x] Koil
 - [x] Koil NixOS module
-- [x] Shed
+- [x] Markut
+- [x] Musializer
+- [x] Panim
 - [x] Porth
+- [x] Shed
 - [x] Snitch
+- [x] Sowon
+- [x] SubChat (not by zozin but relevant to the streams)
+- [x] Tula
+- [x] good_training_language
 - [x] olive.c
 - [x] olive.c NixOS module
-- [x] B
-- [x] Crust (does nothing yet but who knows)
-- [x] good_training_language
-- [x] SubChat (not by zozin but relevant to the streams)
-- [x] Panim
-- [x] Tula
 
 Also some build helpers:
 - [x] buildNobPackage

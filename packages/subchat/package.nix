@@ -27,6 +27,8 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
+  cmakeFlags = lib.optional (!guiSupport) "-DBUILD_GUI=OFF";
+
   patches = [
     ./use-nix-glfw.patch # they are vendoring glfw, but nix needs some patches so just use nixpkgs version
     ./dont-fucking-static-link.patch # this is nixpkgs dammit, -static will not work with stdenv

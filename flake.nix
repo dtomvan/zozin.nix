@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
   outputs =
     inputs@{
@@ -51,8 +52,16 @@
 
         perSystem =
           { pkgs, system, ... }:
+          let
+            treefmt = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+          in
           {
             pkgsDirectory = ./packages;
+
+            packages.treefmt-config = treefmt.config.build.configFile;
+
+            formatter = treefmt.config.build.wrapper;
+            checks.formatting = treefmt.config.build.check self;
 
             checks.koil = pkgs.testers.runNixOSTest {
               imports = [ ./tests/koil.nix ];

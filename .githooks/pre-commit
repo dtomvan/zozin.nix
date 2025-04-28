@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "Checking your code on formatting regressions..."
+
+if command -v nix &> /dev/null; then
+    system=`nix eval --impure --raw --expr 'builtins.currentSystem'`
+    nix --extra-experimental-features "nix-command flakes" build --no-link .#checks."$system".formatting
+elif command -v treefmt &> /dev/null && command -v nixfmt &> /dev/null; then
+    treefmt --ci # fall back on treefmt.toml generated in ../scripts/sync-treefmt-toml.sh
+fi
+
+if [ 0 -ne $? ]; then
+    echo "Wrong formatting! Aborting."
+    exit 2
+fi

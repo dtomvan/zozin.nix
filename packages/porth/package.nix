@@ -42,6 +42,8 @@ stdenv.mkDerivation {
   doCheck = true;
   checkPhase = "${lib.getExe python3} test.py";
 
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+
   meta = {
     description = "Concatenative Programming Language for Computers";
     homepage = "https://gitlab.com/tsoding/porth";

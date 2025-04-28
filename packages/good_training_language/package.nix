@@ -18,15 +18,19 @@ stdenv.mkDerivation {
     hash = "sha256-e6OmONyII30SJU0yVavSpJX93hmX7J3xhZyR8AufrNs=";
   };
 
-  nativeBuildInputs = [ rustc fasm makeWrapper ];
+  nativeBuildInputs = [
+    rustc
+    fasm
+    makeWrapper
+  ];
 
   buildPhase = "./собрать.sh";
   doCheck = true;
   checkPhase = "./тест.sh";
   installPhase = "mkdir -p $out/bin; cp ./сборка/хуяк $out/bin";
-  fixupPhase = "wrapProgram $out/bin/хуяк --prefix PATH : ${lib.makeBinPath [fasm]}";
+  fixupPhase = "wrapProgram $out/bin/хуяк --prefix PATH : ${lib.makeBinPath [ fasm ]}";
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Хороший Учебный Язык";

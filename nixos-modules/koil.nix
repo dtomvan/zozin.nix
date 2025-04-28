@@ -4,12 +4,14 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.services.koil;
-in {
+in
+{
   options.services.koil = with lib; {
     enable = mkEnableOption "Webserver like https://tsoding.github.io/koil/";
-    package = mkPackageOption pkgs "koil" {};
+    package = mkPackageOption pkgs "koil" { };
     port = mkOption {
       description = "The port to listen on";
       default = 1234;
@@ -18,9 +20,9 @@ in {
   };
 
   config.systemd.services.koil = lib.mkIf cfg.enable {
-    wantedBy = ["multi-user.target"];
-    wants = ["network.target"];
-    after = ["network.target"];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network.target" ];
+    after = [ "network.target" ];
 
     script = "KOIL_PORT=${builtins.toString cfg.port} ${cfg.package}/bin/koil-serve";
   };

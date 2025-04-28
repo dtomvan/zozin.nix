@@ -20,10 +20,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-n5rvNCAy5jVZzwPHy5CYpp3n2MTd6p8Jl0SoeixdPGU=";
   };
 
-  patches = [./resources.patch];
+  patches = [ ./resources.patch ];
 
-  buildInputs = [SDL2 freetype glew libGL];
-  nativeBuildInputs = [pkg-config];
+  buildInputs = [
+    SDL2
+    freetype
+    glew
+    libGL
+  ];
+  nativeBuildInputs = [ pkg-config ];
 
   buildPhase = ''
     substituteAllInPlace src/main.c

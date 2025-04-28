@@ -17,14 +17,14 @@ stdenv.mkDerivation {
     hash = "sha256-jjhT9RmmxeU7jmcv7JGete70RQz8uNQvJItMjwpFcKs=";
   };
 
-  patches = [./use-nix-raylib.patch];
+  patches = [ ./use-nix-raylib.patch ];
 
   nativeBuildInputs = [ rustc ];
   buildInputs = [ raylib ];
 
   installPhase = "mkdir -p $out/bin; cp main $out/bin/crust";
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Rust that is actually Fun";

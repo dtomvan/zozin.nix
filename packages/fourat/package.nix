@@ -15,9 +15,9 @@ rustPlatform.buildRustPackage {
   };
 
   fixupPhase = ''
-  mv $out/bin/{,4at-}server
-  mv $out/bin/{,4at-}client
-  mv $out/bin/{,4at-}pandora
+    mv $out/bin/{,4at-}server
+    mv $out/bin/{,4at-}client
+    mv $out/bin/{,4at-}pandora
   '';
 
   doCheck = false;

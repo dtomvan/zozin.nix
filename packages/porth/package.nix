@@ -6,7 +6,7 @@
   fasm,
   autoPatchelfHook,
   makeWrapper,
-  nix-update-script
+  nix-update-script,
 }:
 stdenv.mkDerivation {
   pname = "porth";
@@ -19,7 +19,11 @@ stdenv.mkDerivation {
     hash = "sha256-kN3czOR/84VCECLQHHTeko+z26QHnezWZGOKgva647E=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper fasm ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+    fasm
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -48,6 +52,6 @@ stdenv.mkDerivation {
     description = "Concatenative Programming Language for Computers";
     homepage = "https://gitlab.com/tsoding/porth";
     license = lib.licenses.mit;
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

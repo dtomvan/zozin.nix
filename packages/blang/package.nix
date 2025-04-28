@@ -8,7 +8,8 @@
   nob_h,
   nix-update-script,
 }:
-clangStdenv.mkDerivation { # TODO: when Tsoding starts building with nob, use buildNobPackage
+clangStdenv.mkDerivation {
+  # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
   version = "0-unstable-2025-04-24";
 
@@ -19,24 +20,32 @@ clangStdenv.mkDerivation { # TODO: when Tsoding starts building with nob, use bu
     hash = "sha256-OaxB33466bs3dzccPCizgBZbFtdCXIjucEuEWvxjkto=";
   };
 
-  patches = [(replaceVars ./use-nix-nob.patch {
-    NOB_H = "${nob_h}/include/nob.h";
-  })];
+  patches = [
+    (replaceVars ./use-nix-nob.patch {
+      NOB_H = "${nob_h}/include/nob.h";
+    })
+  ];
 
   postPatch = "rm thirdparty/nob.h";
 
-  nativeBuildInputs = [ rustc fasm ];
+  nativeBuildInputs = [
+    rustc
+    fasm
+  ];
 
-  makeFlags = [ "build/b" "examples" ];
+  makeFlags = [
+    "build/b"
+    "examples"
+  ];
 
   installPhase = ''
-  runHook preInstall
-  
-  mkdir -p $out/bin $out/opt/b/examples
-  cp build/b $out/bin
-  cp build/{hello.js,hello} index.html $out/opt/b/examples
+    runHook preInstall
 
-  runHook postInstall
+    mkdir -p $out/bin $out/opt/b/examples
+    cp build/b $out/bin
+    cp build/{hello.js,hello} index.html $out/opt/b/examples
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

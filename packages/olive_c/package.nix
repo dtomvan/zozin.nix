@@ -27,7 +27,7 @@ in
   };
 
   buildInputs = lib.optional sdlSupport SDL2;
-  nativeBuildInputs = [llvmPackages.bintools];
+  nativeBuildInputs = [ llvmPackages.bintools ];
 
   patches = [
     ./use-nix-nob.patch
@@ -35,14 +35,14 @@ in
     # wasm32 target. This is a hassle, but is caused by a quirk in
     # cc-wrapper.sh
     (replaceVars ./use-different-wasm32-compiler.patch {
-      CLANG_WASM = "clang-19"; 
+      CLANG_WASM = "clang-19";
       GLIBC = glibc_multi.dev;
       CLANG = cc.passthru.cc.lib;
       NOB_H = nob_h;
     })
   ];
 
-  nobArgs = ["tools"];
+  nobArgs = [ "tools" ];
 
   doCheck = sdlSupport;
   # we call nob once more to build assets and tests, which fail without SDL2

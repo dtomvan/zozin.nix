@@ -12,7 +12,8 @@
   zenity,
   raylib,
   dialogProgram ? zenity,
-}: (buildNobPackage rec {
+}:
+(buildNobPackage rec {
   pname = "musializer";
   version = "alpha2-unstable-2025-04-14";
 
@@ -23,14 +24,16 @@
     hash = "sha256-NbumChMDzh3kVi8q2Bhk91D6L9ckfqFncrwN0D5GA6w=";
   };
 
-  desktopItems = [(makeDesktopItem {
-    name = "musializer";
-    exec = "musializer";
-    comment = meta.description;
-    desktopName = "Musializer";
-    genericName = "Musializer";
-    icon = "musializer";
-  })];
+  desktopItems = [
+    (makeDesktopItem {
+      name = "musializer";
+      exec = "musializer";
+      comment = meta.description;
+      desktopName = "Musializer";
+      genericName = "Musializer";
+      icon = "musializer";
+    })
+  ];
 
   # 2nd patch depends on the first one, hence sharing vars, idk what to do about that
   patches = [
@@ -56,12 +59,17 @@
 
   postInstall = ''
     wrapProgram $out/bin/musializer \
-      --prefix PATH : ${lib.makeBinPath [dialogProgram ffmpeg]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          dialogProgram
+          ffmpeg
+        ]
+      }
 
     install -Dm644 resources/logo/logo-256.png $out/share/pixmaps/musializer.png
   '';
 
-  outPaths = ["build/musializer"];
+  outPaths = [ "build/musializer" ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

@@ -1,4 +1,10 @@
-{ stdenv, nix-update-script, lib, fetchFromGitHub }: stdenv.mkDerivation {
+{
+  stdenv,
+  nix-update-script,
+  lib,
+  fetchFromGitHub,
+}:
+stdenv.mkDerivation {
   pname = "nob.h";
   version = "0-unstable-2025-04-24";
 
@@ -27,6 +33,9 @@
   meta = {
     description = "Header only library for writing build recipes in C.";
     homepage = "https://github.com/tsoding/nob.h";
-    license = with lib.licenses; [mit unlicense];
+    license = with lib.licenses; [
+      mit
+      unlicense
+    ];
   };
 }

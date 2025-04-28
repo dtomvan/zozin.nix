@@ -23,7 +23,10 @@ buildGoModule {
 
   doCheck = false; # no tests
 
-  ldflags = ["-s" "-w"];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   meta = {
     description = "The chat bot Zozin does not want you to know about";

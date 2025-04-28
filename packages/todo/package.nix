@@ -23,6 +23,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/tsoding/todo.asm";
     license = lib.licenses.mit;
     mainProgram = "todo";
-    platforms = ["x86_64-linux"];
+    platforms = [ "x86_64-linux" ];
   };
 }

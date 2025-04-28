@@ -39,7 +39,7 @@ buildNimPackage (finalAttrs: {
     "-d:NimblePkgVersion=${finalAttrs.version}"
   ];
 
-  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Zoomer application for Linux";

@@ -2,21 +2,33 @@
   lib,
   stdenv,
   nob_h,
-}: lib.makeOverridable (args @ {
-    outPaths ? [],
+}:
+lib.makeOverridable (
+  args@{
+    outPaths ? [ ],
     nobPath ? "nob.c",
-    nobArgs ? [],
+    nobArgs ? [ ],
     pname,
     version,
-    meta ? {},
-    buildInputs ? [],
-    nativeBuildInputs ? [],
-    patches ? [],
+    meta ? { },
+    buildInputs ? [ ],
+    nativeBuildInputs ? [ ],
+    patches ? [ ],
     src,
     ...
-  }: stdenv.mkDerivation ({
-      inherit pname version meta buildInputs nativeBuildInputs src patches;
-      
+  }:
+  stdenv.mkDerivation (
+    {
+      inherit
+        pname
+        version
+        meta
+        buildInputs
+        nativeBuildInputs
+        src
+        patches
+        ;
+
       buildPhase = ''
         runHook preBuild
         # users of buildNobPackage are expected to patch out the vendored nob.h
@@ -33,4 +45,7 @@
 
         runHook postInstall
       '';
-    } // args))
+    }
+    // args
+  )
+)

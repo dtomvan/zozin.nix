@@ -19,10 +19,17 @@ stdenv.mkDerivation {
     hash = "sha256-rhtcueNDQnzHpw26b0YbIkPWCRHU6oRQ2lBkKeJdv9E=";
   };
 
-  patches = [./dynamic-linking.patch];
+  patches = [ ./dynamic-linking.patch ];
 
-  nativeBuildInputs = [dmd ldc dtools];
-  buildInputs = [readline ncurses];
+  nativeBuildInputs = [
+    dmd
+    ldc
+    dtools
+  ];
+  buildInputs = [
+    readline
+    ncurses
+  ];
 
   buildPhase = "rdmd build.d";
   installPhase = "mkdir -p $out/bin; cp shed $out/bin";

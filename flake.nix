@@ -10,44 +10,61 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    flake-parts,
-    ...
-  }:
-    flake-parts.lib.mkFlake {inherit inputs;} (top @ {
-      config,
-      withSystem,
-      moduleWithSystem,
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      flake-parts,
       ...
-    }: {
-      imports = [
-        inputs.pkgs-by-name-for-flake-parts.flakeModule
-        inputs.home-manager.flakeModules.home-manager
-      ];
+    }:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      top@{
+        config,
+        withSystem,
+        moduleWithSystem,
+        ...
+      }:
+      {
+        imports = [
+          inputs.pkgs-by-name-for-flake-parts.flakeModule
+          inputs.home-manager.flakeModules.home-manager
+        ];
 
-      flake = {
-        nixosModules.olive_c = {pkgs, ...}: {
-          imports = [./nixos-modules/olive_c.nix];
-          services.olive-c.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.olive_c);
+        flake = {
+          nixosModules.olive_c =
+            { pkgs, ... }:
+            {
+              imports = [ ./nixos-modules/olive_c.nix ];
+              services.olive-c.package = withSystem pkgs.stdenv.hostPlatform.system (
+                { config, ... }: config.packages.olive_c
+              );
+            };
+
+          nixosModules.koil =
+            { pkgs, ... }:
+            {
+              imports = [ ./nixos-modules/koil.nix ];
+              services.koil.package = withSystem pkgs.stdenv.hostPlatform.system (
+                { config, ... }: config.packages.koil
+              );
+            };
         };
 
-        nixosModules.koil = {pkgs, ...}: {
-          imports = [./nixos-modules/koil.nix];
-          services.koil.package = withSystem pkgs.stdenv.hostPlatform.system ({config, ...}: config.packages.koil);
-        };
-      };
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
 
-      systems = ["x86_64-linux" "aarch64-linux"];
+        perSystem =
+          { pkgs, system, ... }:
+          {
+            pkgsDirectory = ./packages;
 
-      perSystem = {pkgs, system, ...}: {
-        pkgsDirectory = ./packages;
-
-        checks.koil = pkgs.testers.runNixOSTest {
-          imports = [./tests/koil.nix];
-          defaults.services.koil.package = self.packages.${system}.koil;
-        };
-      };
-    });
+            checks.koil = pkgs.testers.runNixOSTest {
+              imports = [ ./tests/koil.nix ];
+              defaults.services.koil.package = self.packages.${system}.koil;
+            };
+          };
+      }
+    );
 }

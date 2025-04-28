@@ -4,13 +4,15 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.services.olive-c;
   port = cfg.port;
-in {
+in
+{
   options.services.olive-c = with lib; {
     enable = mkEnableOption "Webserver like https://tsoding.github.io/olive.c/";
-    package = mkPackageOption pkgs "olive_c" {};
+    package = mkPackageOption pkgs "olive_c" { };
     port = mkOption {
       description = "The port to listen on";
       default = 6969;
@@ -19,14 +21,14 @@ in {
   };
 
   config.systemd.services.olive-c = lib.mkIf cfg.enable {
-    wantedBy = ["multi-user.target"];
-    wants = ["network.target"];
-    after = ["network.target"];
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network.target" ];
+    after = [ "network.target" ];
 
-    path = [pkgs.python3];
+    path = [ pkgs.python3 ];
 
     script = ''
-    python3 -m http.server -d ${cfg.package} ${builtins.toString port}
+      python3 -m http.server -d ${cfg.package} ${builtins.toString port}
     '';
   };
 }

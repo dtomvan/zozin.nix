@@ -34,13 +34,11 @@ stdenv.mkDerivation {
     ./dont-fucking-static-link.patch # this is nixpkgs dammit, -static will not work with stdenv
   ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      makeWrapper
-    ]
-    ++ lib.optional guiSupport wayland-scanner;
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ] ++ lib.optional guiSupport wayland-scanner;
 
   buildInputs = lib.optionals guiSupport [
     glfw
@@ -60,12 +58,12 @@ stdenv.mkDerivation {
   '';
 
   fixupPhase = ''
-  runHook preFixup
-  ${lib.optionalString guiSupport ''
-  wrapProgram $out/bin/config_generator_gui \
-    --prefix PATH ":" ${lib.makeBinPath [zenity]}
-  ''}
-  runHook postFixup
+    runHook preFixup
+    ${lib.optionalString guiSupport ''
+      wrapProgram $out/bin/config_generator_gui \
+        --prefix PATH ":" ${lib.makeBinPath [ zenity ]}
+    ''}
+    runHook postFixup
   '';
 
   meta = {

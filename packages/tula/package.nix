@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage {
   doCheck = true;
 
   checkPhase = ''
-  ${lib.getExe python3} ./rere.py replay ./tests.list
+    ${lib.getExe python3} ./rere.py replay ./tests.list
   '';
 
   cargoHash = "sha256-ADfthz5qhGDxcYjPzeRwY7UVtgEi91piVA+tKDdBT+U=";

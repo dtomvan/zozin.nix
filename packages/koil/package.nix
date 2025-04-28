@@ -10,7 +10,8 @@
   replaceVars,
   makeWrapper,
   nix-update-script,
-}: let
+}:
+let
   llvmPackages = llvmPackages_19;
   cc = llvmPackages.clang;
   ourc3c = c3c.overrideAttrs {
@@ -36,54 +37,54 @@
     wait
   '';
 in
-  buildNpmPackage {
-    pname = "koil";
-    version = "0-unstable-2025-04-21";
+buildNpmPackage {
+  pname = "koil";
+  version = "0-unstable-2025-04-21";
 
-    src = fetchFromGitHub {
-      owner = "tsoding";
-      repo = "koil";
-      rev = "1686d2cdce6e0c8923808911162ebbcf1ef6db39";
-      hash = "sha256-W6xfQln75FmqhUdv5UjxHW4ihE5l90n4Kgq0iLqrAxc=";
-    };
+  src = fetchFromGitHub {
+    owner = "tsoding";
+    repo = "koil";
+    rev = "1686d2cdce6e0c8923808911162ebbcf1ef6db39";
+    hash = "sha256-W6xfQln75FmqhUdv5UjxHW4ihE5l90n4Kgq0iLqrAxc=";
+  };
 
-    patches = [
-      (replaceVars ./use-different-wasm32-compiler.patch {
-        GLIBC = glibc_multi.dev;
-        CLANG = cc.passthru.cc.lib;
-      })
-    ];
+  patches = [
+    (replaceVars ./use-different-wasm32-compiler.patch {
+      GLIBC = glibc_multi.dev;
+      CLANG = cc.passthru.cc.lib;
+    })
+  ];
 
-    nativeBuildInputs = [
-      cc
-      ourc3c
-      makeWrapper
-    ];
+  nativeBuildInputs = [
+    cc
+    ourc3c
+    makeWrapper
+  ];
 
-    npmDepsHash = "sha256-d+LGpFoThvA7KnFqEhnJSPhj+jQcvc399Iv7YJ5ZtVw=";
+  npmDepsHash = "sha256-d+LGpFoThvA7KnFqEhnJSPhj+jQcvc399Iv7YJ5ZtVw=";
 
-    # those are checked out in git
-    preBuild = ''
-      rm -rf build
-      rm -f client.wasm client.mjs
-    '';
+  # those are checked out in git
+  preBuild = ''
+    rm -rf build
+    rm -f client.wasm client.mjs
+  '';
 
-    postInstall = ''
-      mkdir $out/bin
-      cp build/server $out/bin/koil-server
-      cp build/packer $out/bin/koil-packer
-      cp index.html client.wasm client.mjs $out
+  postInstall = ''
+    mkdir $out/bin
+    cp build/server $out/bin/koil-server
+    cp build/packer $out/bin/koil-packer
+    cp index.html client.wasm client.mjs $out
 
-      makeWrapper ${serve} $out/bin/koil-serve \
-        --prefix PATH ":" $out/bin \
-        --chdir $out
-    '';
+    makeWrapper ${serve} $out/bin/koil-serve \
+      --prefix PATH ":" $out/bin \
+      --chdir $out
+  '';
 
-    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-    meta = {
-      description = "Online Multiplayer Browser Game with Old-School Raycasting Graphics";
-      homepage = "https://github.com/tsoding/koil";
-      licenses = lib.licenses.mit;
-    };
-  }
+  meta = {
+    description = "Online Multiplayer Browser Game with Old-School Raycasting Graphics";
+    homepage = "https://github.com/tsoding/koil";
+    licenses = lib.licenses.mit;
+  };
+}

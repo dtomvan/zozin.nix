@@ -20,13 +20,13 @@ buildNobPackage {
     (replaceVars ./use-nix-raylib.patch { RAYLIB = raylib; })
     ./no-c3c.patch # these are broken examples so no point in trying to package them
   ];
-  outPaths = ["build/panim"];
+  outPaths = [ "build/panim" ];
 
-  buildInputs = [raylib];
+  buildInputs = [ raylib ];
 
   postInstall = ''
-  mkdir -p $out/lib
-  cp build/lib{bezier,cpp,square,template,tm}.so $out/lib
+    mkdir -p $out/lib
+    cp build/lib{bezier,cpp,square,template,tm}.so $out/lib
   '';
 
   meta = {

@@ -19,8 +19,7 @@ stdenv.mkDerivation {
     hash = "sha256-kN3czOR/84VCECLQHHTeko+z26QHnezWZGOKgva647E=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
-  buildInputs = [ fasm ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper fasm ];
 
   buildPhase = ''
     runHook preBuild

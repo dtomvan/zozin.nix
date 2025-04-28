@@ -22,7 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [./resources.patch];
 
-  nativeBuildInputs = [SDL2 freetype glew libGL pkg-config];
+  buildInputs = [SDL2 freetype glew libGL];
+  nativeBuildInputs = [pkg-config];
 
   buildPhase = ''
     substituteAllInPlace src/main.c

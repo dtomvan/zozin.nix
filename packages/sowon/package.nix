@@ -19,10 +19,8 @@ stdenv.mkDerivation {
 
   installPhase = "make PREFIX=$out install";
 
-  nativeBuildInputs = [
-    SDL2
-    pkg-config
-  ];
+  buildInputs = [SDL2];
+  nativeBuildInputs = [pkg-config];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

@@ -26,7 +26,8 @@ in
     hash = "sha256-cH7e2fXhUQU27pp2iCMmWtsQk7mrMkI5MTrin/pYL34=";
   };
 
-  nativeBuildInputs = [llvmPackages.bintools] ++ lib.optional sdlSupport SDL2;
+  buildInputs = lib.optional sdlSupport SDL2;
+  nativeBuildInputs = [llvmPackages.bintools];
 
   patches = [
     ./use-nix-nob.patch

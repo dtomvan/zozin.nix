@@ -4,11 +4,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     inputs@{
@@ -27,7 +22,6 @@
       {
         imports = [
           inputs.pkgs-by-name-for-flake-parts.flakeModule
-          inputs.home-manager.flakeModules.home-manager
         ];
 
         flake = {

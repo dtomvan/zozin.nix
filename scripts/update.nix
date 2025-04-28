@@ -12,8 +12,8 @@
   order ? null,
 }:
 let
-  self = import ./default.nix { };
-  nixpkgs = (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs.outPath; # HACK
+  self = import ../default.nix { };
+  nixpkgs = (builtins.getFlake (builtins.toString ./..)).inputs.nixpkgs.outPath; # HACK
   pkgs = (import nixpkgs { }) // self;
 
   inherit (pkgs) lib;

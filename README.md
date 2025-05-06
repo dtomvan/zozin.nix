@@ -28,13 +28,9 @@ Also some build helpers:
 - [x] buildNobPackage
 
 ## Usage
-There are 3 main modes of operation:
+There are 2 main modes of operation:
 1. Separate packages
 2. NixOS module / config
-3. home-manager module / config
-
-And of course all of the above may be combined, but if you don't want to drown
-in complexity I wouldn't recommend that.
 
 ### Single packages
 You can use flakes for that:

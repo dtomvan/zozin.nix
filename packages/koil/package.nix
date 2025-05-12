@@ -10,6 +10,9 @@
   replaceVars,
   makeWrapper,
   nix-update-script,
+
+  koil,
+  testers,
 }:
 let
   llvmPackages = llvmPackages_19;
@@ -39,13 +42,13 @@ let
 in
 buildNpmPackage {
   pname = "koil";
-  version = "0-unstable-2025-04-21";
+  version = "0-unstable-2025-05-11";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "koil";
-    rev = "1686d2cdce6e0c8923808911162ebbcf1ef6db39";
-    hash = "sha256-W6xfQln75FmqhUdv5UjxHW4ihE5l90n4Kgq0iLqrAxc=";
+    rev = "3ab5b3fc4d4e00158311b2cf81d50ae51610d897";
+    hash = "sha256-KRWVoOcipKHVmNksshGjfxboC4eU73k8dNCL5yzMGRw=";
   };
 
   patches = [
@@ -80,7 +83,13 @@ buildNpmPackage {
       --chdir $out
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru = {
+    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    tests.koil = testers.runNixOSTest {
+      imports = [ ../../tests/koil.nix ];
+      defaults.services.koil.package = koil;
+    };
+  };
 
   meta = {
     description = "Online Multiplayer Browser Game with Old-School Raycasting Graphics";

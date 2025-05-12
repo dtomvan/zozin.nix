@@ -24,8 +24,7 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
-    mkdir -p $out/include
-    cp nob.h $out/include
+    install -Dm644 nob.h $out/include/nob.h
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };

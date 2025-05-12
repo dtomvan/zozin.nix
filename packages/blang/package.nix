@@ -11,13 +11,13 @@
 clangStdenv.mkDerivation {
   # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
-  version = "0-unstable-2025-04-24";
+  version = "0-unstable-2025-05-11";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "b";
-    rev = "513cd864a2546c6bf61f2681d8e928fa1d2a26d7";
-    hash = "sha256-OaxB33466bs3dzccPCizgBZbFtdCXIjucEuEWvxjkto=";
+    rev = "6f3d5eb446c799fc0a71bac01a7293443dc57e33";
+    hash = "sha256-vawrRg1i5F3yMyFAukN9EWPhWudyEMCQZkwz1Q/STF8=";
   };
 
   patches = [
@@ -33,17 +33,13 @@ clangStdenv.mkDerivation {
     fasm
   ];
 
-  makeFlags = [
-    "build/b"
-    "examples"
-  ];
-
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin $out/opt/b/examples
     cp build/b $out/bin
-    cp build/{hello.js,hello} index.html $out/opt/b/examples
+    # removed (temporarily?)
+    # cp build/{hello.js,hello} index.html $out/opt/b/examples
 
     runHook postInstall
   '';

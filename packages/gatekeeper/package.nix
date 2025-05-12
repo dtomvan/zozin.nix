@@ -2,16 +2,17 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 buildGoModule {
   pname = "gatekeeper";
-  version = "0-unstable-2025-03-04";
+  version = "0-unstable-2025-05-10";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "Gatekeeper";
-    rev = "005e813a6d8e90d7e3fe4f2aaac28661d0e55f15";
-    hash = "sha256-3bHsYZgErsoaZF1+RlUz64C40jr9QsWfsqL0X2+iguE=";
+    rev = "faf43d28278b575b58c6e3cb5bdc20f32de461e6";
+    hash = "sha256-JdVPLudy0F6fPi8QvqNKTWOatAuEC99dreuiwXAT9uM=";
   };
 
   vendorHash = "sha256-IEvrGVaYcnR+PxaIc00sw0+TJgoJIi14vihgCkUu8zc=";
@@ -27,6 +28,8 @@ buildGoModule {
     "-s"
     "-w"
   ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "The chat bot Zozin does not want you to know about";

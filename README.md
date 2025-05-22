@@ -42,23 +42,7 @@ $ nix profile install github:dtomvan/zozin.nix#porth
 ```
 
 #### In NixOS
-Without flakes:
-
-```nix
-{ pkgs, lib, ... }: 
-let
-  zozin = import (pkgs.fetchFromGitHub {
-    owner = "dtomvan";
-    repo = "zozin.nix";
-    rev = "3f80e6c74f1c4aafb9530902f9a9cb6d076be626";
-    hash = "sha256-6/7pERX/tx/Bai/ou7UN+ltNImCdEpxlTrAiB/YM6v0=";
-  });
-in {
-  environment.systemPackages = with zozin; [porth musializer sowon boomer ded];
-}
-```
-
-Or with flakes, in your `flake.nix`:
+With flakes, in your `flake.nix`:
 ```nix
 inputs.zozin.url = "github:dtomvan/zozin.nix";
 ```

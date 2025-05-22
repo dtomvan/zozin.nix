@@ -2,8 +2,7 @@
   description = "Become zozin with Nix(OS)";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
+    nur-packages.url = "github:dtomvan/nur-packages";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
   outputs =
@@ -21,10 +20,6 @@
         ...
       }:
       {
-        imports = [
-          inputs.pkgs-by-name-for-flake-parts.flakeModule
-        ];
-
         flake = {
           nixosModules.olive_c =
             { pkgs, ... }:
@@ -56,9 +51,7 @@
             treefmt = inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
           in
           {
-            pkgsDirectory = ./packages;
-
-            packages.treefmt-config = treefmt.config.build.configFile;
+            packages = inputs.nur-packages.legacyPackages.${system}.tsodingPackages;
 
             formatter = treefmt.config.build.wrapper;
             checks.formatting = treefmt.config.build.check self;

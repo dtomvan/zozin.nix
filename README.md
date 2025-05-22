@@ -75,33 +75,6 @@ outputs = { nixpkgs, zozin, ... }: {
 };
 ```
 
-#### Copy-paste method
-If you know what you are doing, you can of course install these without ever
-pulling in this repo through the flakes system, which is what I would
-personally do if I encountered such a repo. Just steal, no depend. :)
-
-1. Copy one of the folders in `packages/` to your own config
-2. Reference to it via `callPackage` e.g. `pkgs.callPackage ./boomer/package.nix {}`
-3. Don't forget to also get `buildNobPackage` if needed
-
-### Koil server
-Add the input to the flake:
-```nix
-inputs.zozin.url = "github:dtomvan/zozin.nix";
-```
-
-You can then reference it in your NixOS config as `zozin.nixosModules.koil`:
-```nix
-outputs = { nixpkgs, zozin, ... }: {
-  nixosConfigurations.penger = nixpkgs.lib.nixosSystem {
-    modules = [
-      zozin.nixosModules.koil
-      { services.koil.enable = true; }
-    ];
-  };
-};
-```
-
 ### Olive.c server
 Add the input to the flake:
 ```nix
